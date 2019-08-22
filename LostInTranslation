@@ -1,0 +1,167 @@
+#!/usr/bin/env python3
+import random
+import sys
+from googletrans import Translator
+import argparse
+
+parser = argparse.ArgumentParser(
+        description='Translate text through a random chain of N languages back to the original')
+
+parser.add_argument(
+        '-n', 
+        '--number-of-languages', 
+        help='Number of intermediate languages',
+        default=10,
+        type=int,
+        dest='number_languages')
+
+parser.add_argument(
+        'text',
+        help='Text to translate',
+        default='This statement is false',)
+
+args = parser.parse_args()
+
+
+translator = Translator()
+
+def discover_languages():
+    for lang in languages:
+        try:
+            translator.translate('test', dest=lang)
+        except:
+            pass
+        else:
+            print(f'"{lang}": "{languages[lang]}",')
+
+languages = {
+    "af": "Afrikaans",
+    "am": "Amharic",
+    "ar": "Arabic",
+    "az": "Azerbaijani",
+    "be": "Belarusian",
+    "bg": "Bulgarian",
+    "bn": "Bengali",
+    "bs": "Bosnian",
+    "ca": "Catalan",
+    "ceb": "Cebuano",
+    "co": "Corsican",
+    "cs": "Czech",
+    "cy": "Welsh",
+    "da": "Danish",
+    "de": "German",
+    "ee": "Ewe",
+    "el": "Greek",
+    "en": "English",
+    "eo": "Esperanto",
+    "es": "Spanish",
+    "et": "Estonian",
+    "eu": "Basque",
+    "fa": "Persian",
+    "fi": "Finnish",
+    "fr": "French",
+    "fy": "West Frisian",
+    "ga": "Irish",
+    "gd": "Scottish Gaelic",
+    "gl": "Galician",
+    "gu": "Gujarati",
+    "ha": "Hausa",
+    "haw": "Hawaiian",
+    "he": "Hebrew",
+    "hi": "Hindi",
+    "hr": "Croatian",
+    "ht": "Haitian",
+    "hu": "Hungarian",
+    "hy": "Armenian",
+    "id": "Indonesian",
+    "ig": "Igbo",
+    "is": "Icelandic",
+    "it": "Italian",
+    "ja": "Japanese",
+    "ka": "Georgian",
+    "kk": "Kazakh",
+    "km": "Cambodian",
+    "kn": "Kannada",
+    "ko": "Korean",
+    "ku": "Kurdish",
+    "ky": "Kirghiz",
+    "la": "Latin",
+    "lb": "Luxembourgish",
+    "lo": "Laotian",
+    "lt": "Lithuanian",
+    "lv": "Latvian",
+    "mg": "Malagasy",
+    "mi": "Maori",
+    "mk": "Macedonian",
+    "ml": "Malayalam",
+    "mn": "Mongolian",
+    "mr": "Marathi",
+    "ms": "Malay",
+    "mt": "Maltese",
+    "my": "Burmese",
+    "ne": "Nepali",
+    "nl": "Dutch",
+    "no": "Norwegian",
+    "ny": "Chichewa",
+    "pa": "Panjabi / Punjabi",
+    "pl": "Polish",
+    "ps": "Pashto",
+    "pt": "Portuguese",
+    "ro": "Romanian",
+    "ru": "Russian",
+    "sd": "Sindhi",
+    "si": "Sinhalese",
+    "sk": "Slovak",
+    "sl": "Slovenian",
+    "sm": "Samoan",
+    "sn": "Shona",
+    "so": "Somalia",
+    "sq": "Albanian",
+    "sr": "Serbian",
+    "st": "Southern Sotho",
+    "su": "Sundanese",
+    "sv": "Swedish",
+    "sw": "Swahili",
+    "ta": "Tamil",
+    "te": "Telugu",
+    "tg": "Tajik",
+    "th": "Thai",
+    "tl": "Tagalog",
+    "tr": "Turkish",
+    "uk": "Ukrainian",
+    "ur": "Urdu",
+    "uz": "Uzbek",
+    "vi": "Vietnamese",
+    "xh": "Xhosa",
+    "yi": "Yiddish",
+    "yo": "Yoruba",
+    "zu": "Zulu",
+    "zh-tw": "Traditional Chinese"
+}
+
+lang_from = 'en'
+text = args.text
+trans = text
+#chain = ["en", "mg", "my", "xh", "en"]
+chain = [lang_from]
+chain = chain + random.sample(list(languages.keys()), args.number_languages)
+chain.append(lang_from)
+
+chain_lang_names = []
+
+for l in chain:
+    chain_lang_names.append(languages[l])
+
+
+print("Translation chain: ", " >> ".join(chain_lang_names))
+print("---------------")
+
+
+print(f'{languages[lang_from]}: {trans}')
+for lindex in range(len(chain)-1):
+    a = chain[lindex]
+    b = chain[lindex+1]
+    translation = translator.translate(trans, src=a, dest=b)
+    trans = translation.text
+    print(f'{languages[chain[lindex+1]]}: {trans}')
+
