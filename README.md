@@ -5,7 +5,7 @@ LostInTranslations translates text through a chain of languages and back to the 
 ### Installation
 ```
 git clone https://github.com/iscrow/LostInTranslation.git
-pip install LostInTranslation/
+sudo pip install LostInTranslation/
 ```
 ### Usage
 ```
