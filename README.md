@@ -1,6 +1,7 @@
 # LostInTranslation
 
 LostInTranslations translates text through a chain of languages and back to the original. Because why not?
+**If you use it too much google will block your API calls... temporarily. Ask how I know.***
 
 ### Installation
 ```
