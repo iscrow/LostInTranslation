@@ -139,7 +139,8 @@ languages = {
     "zh-CN": "Yoruba",
     "yo": "Chinese (Simplified)",
     "zh-TW": "Chinese (Traditional)",
-    "zu": "Zulu"}
+    "zu": "Zulu"
+}
 
 lang_from = 'en'
 text = args.text

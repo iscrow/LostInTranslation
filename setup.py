@@ -8,7 +8,7 @@ setup(name='LostInTranslation',
     author_email='iscrow@gmail.com',
     license='The Unlicense',
     install_requires=[
-    	'googletrans',
+    	'googletrans==3.1.0a0',
     ],
     zip_safe=False,
     scripts=['LostInTranslation'])
